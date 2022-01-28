@@ -33,3 +33,6 @@
 
 # Output
 output/
+
+# Configuration .vscode
+.vscode/
