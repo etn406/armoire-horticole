@@ -33,7 +33,7 @@ void setup()
     ahRelays.setup();
     ahInputs.setup();
     ahInputs.onButtonOnOffPressed = []()
-    { ahRelays.toggleAll(); };
+    { ahDisplay.mainOnOff = ahRelays.toggleAll(); };
 
     ahDisplay.setup();
     ahWebServer.setup();
@@ -42,9 +42,16 @@ void setup()
     ahWebServer.onSensorsRequest = []()
     { return ahSensors.getSensorsValuesJSON(); };
 
+    // Lorsqu'un client web demande les status des relays
+    ahWebServer.onRelaysValuesRequest = []()
+    { return ahRelays.getRelaysValuesJSON(); };
+
     // Lorsqu'un client web demande les valeurs captées
     ahWebServer.onRelayChangeRequest = [](String name, bool on)
-    { return ahRelays.setRelay(name, on); };
+    {
+        ahRelays.setRelay(name, on);
+        return ahRelays.getRelaysValuesJSON();
+    };
 }
 
 void loop()

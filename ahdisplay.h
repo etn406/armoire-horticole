@@ -22,6 +22,7 @@ public:
     float temperature = 0.0;
     float humidity = 0.0;
     String wifiStatus = "";
+    bool mainOnOff = true;
 
     void setup();
     void loop(const long time);

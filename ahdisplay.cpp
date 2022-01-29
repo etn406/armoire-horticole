@@ -48,7 +48,11 @@ void AHDisplay::refreshDisplay(const long time)
 
     display.setFont();
     display.setCursor(0, 0);
-    display.print(wifiStatus);
+
+    if (mainOnOff)
+        display.print("ON  " + String(mainOnOff));
+    else
+        display.print("OFF " + String(mainOnOff));
 
     String seconds = String(int(time / 1000)) + "s";
     display.getTextBounds(seconds, 0, 0, &x1, &y1, &w, &h);

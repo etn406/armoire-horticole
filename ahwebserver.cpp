@@ -97,8 +97,15 @@ void AHWebServer::setup()
         server->on("/get-sensors-values", [&]()
                    { server->send(200, "application/json", onSensorsRequest()); });
 
-        // server->on("/get-relays-values", [&]()
-        //            { server->send(200, "application/json", onRelaysRequest()); });
+        server->on("/get-relays-values", [&]()
+                   { server->send(200, "application/json", onRelaysValuesRequest()); });
+
+        server->on("/set-relay", [&]()
+                   {
+                       String name = getArgValue("name");
+                       bool value = getArgValue("value") == "true";
+                       server->send(200, "application/json", onRelayChangeRequest(name, value));
+                   });
 
         server->onNotFound([&]()
                            { server->send(404, "text/plain", "File Not Found\n\n" + getRequestDescription()); });

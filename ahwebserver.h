@@ -19,10 +19,11 @@ public:
     String (*onSensorsRequest)() = []()
     { return String("{\"error\":\"onSensorsRequest is undefined\"}"); };
 
-    // String (*onRelaysRequest)() = []()
-    // { return String("{\"error\":\"onRelaysRequest is undefined\"}"); };
+    String (*onRelaysValuesRequest)() = []()
+    { return String("{\"error\":\"onRelaysValuesRequest is undefined\"}"); };
 
-    void (*onRelayChangeRequest)(String name, bool on) = [](String name, bool on) {};
+    String (*onRelayChangeRequest)(String name, bool value) = [](String name, bool value)
+    { return String("{\"error\":\"onRelayChangeRequest is undefined\"}"); };
 
 private:
     AHSensors ahSensors;

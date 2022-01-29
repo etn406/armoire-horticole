@@ -2,63 +2,121 @@
 
 void AHRelays::setup()
 {
-    for (auto &relay : relays)
+    for (int i = 0; i < AH_RELAYS_COUNT; i++)
     {
+        const Relay relay = relays[i];
         pinMode(relay.pin, OUTPUT);
-        digitalWrite(relay.pin, relay.value);
+        digitalWrite(relay.pin, relay.value ? LOW : HIGH);
     }
 }
 
 void AHRelays::loop(const long time)
 {
-    // // Allumer la LED pendant une demi seconde à chaque update
-    // if (currentTime > lastUpdateTime && currentTime < lastUpdateTime + 500)
-    // {
-    //     digitalWrite(RELAY1, LOW);
-    //     digitalWrite(RELAY2, HIGH);
-    //     digitalWrite(RELAY3, LOW);
-    //     digitalWrite(RELAY4, HIGH);
-    // }
-    // else
-    // {
-    //     digitalWrite(RELAY1, HIGH);
-    //     digitalWrite(RELAY2, LOW);
-    //     digitalWrite(RELAY3, HIGH);
-    //     digitalWrite(RELAY4, LOW);
-    // }
 }
 
-void AHRelays::toggleAll()
+bool AHRelays::toggleAll()
 {
     mainOnOff = !mainOnOff;
     update();
+    return mainOnOff;
 }
 
-void AHRelays::setRelay(String name, bool on)
+void AHRelays::setRelay(String name, bool value)
 {
-    for (auto &relay : relays)
+    if (name.equals("main"))
     {
-        if (relay.name == name)
+        mainOnOff = value;
+
+        if (mainOnOff)
         {
-            relay.value = on ? HIGH : LOW;
+            // Si on allume "main" et que tous les autres interrupteurs sont OFF,
+            // alors on allume tout
+            bool allOff = true;
+            for (int i = 0; i < AH_RELAYS_COUNT; i++)
+            {
+                allOff = allOff && (relays[i].value == false);
+            }
+
+            if (allOff)
+            {
+                for (int i = 0; i < AH_RELAYS_COUNT; i++)
+                {
+                    relays[i].value = true;
+                }
+            }
         }
     }
+    else
+    {
+        for (int i = 0; i < AH_RELAYS_COUNT; i++)
+        {
+            if (relays[i].name.equals(name))
+            {
+                relays[i].value = value;
+            }
+        }
+    }
+
+    update();
 }
 
 void AHRelays::update()
 {
     if (mainOnOff)
     {
-        for (auto &relay : relays)
+        for (int i = 0; i < AH_RELAYS_COUNT; i++)
         {
-            digitalWrite(relay.pin, relay.value);
+            const Relay relay = relays[i];
+            digitalWrite(relay.pin, relay.value ? LOW : HIGH);
         }
+        // digitalWrite(AH_RELAY_1_PIN, relays[0].value ? LOW: HIGH);
+        // digitalWrite(AH_RELAY_2_PIN, relays[1].value ? LOW: HIGH);
+        // digitalWrite(AH_RELAY_3_PIN, relays[2].value ? LOW: HIGH);
+        // digitalWrite(AH_RELAY_HEAT_PIN, relays[3].value ? LOW: HIGH);
     }
     else
     {
-        for (auto &relay : relays)
-        {
-            digitalWrite(relay.pin, LOW);
-        }
+        // for (int i = 0; i < AH_RELAYS_COUNT; i++)
+        // {
+        //     const Relay relay = relays[i];
+        //     digitalWrite(relay.pin, HIGH);
+        // }
+
+        digitalWrite(AH_RELAY_1_PIN, HIGH);
+        digitalWrite(AH_RELAY_2_PIN, HIGH);
+        digitalWrite(AH_RELAY_3_PIN, HIGH);
+        digitalWrite(AH_RELAY_HEAT_PIN, HIGH);
     }
+}
+
+String AHRelays::getRelaysValuesJSON()
+{
+    String responseJSONString = "";
+    DynamicJsonDocument responseJSON(350);
+
+    const size_t CAPACITY = JSON_OBJECT_SIZE(10);
+
+    for (int i = 0; i < AH_RELAYS_COUNT; i++)
+    {
+        const Relay relay = relays[i];
+
+        StaticJsonDocument<CAPACITY> doc;
+        JsonObject obj = doc.to<JsonObject>();
+
+        obj["name"] = relay.name;
+        obj["value"] = relay.value;
+
+        responseJSON.add(obj);
+    }
+
+    StaticJsonDocument<CAPACITY> doc;
+    JsonObject obj = doc.to<JsonObject>();
+
+    obj["name"] = "main";
+    obj["value"] = mainOnOff;
+
+    responseJSON.add(obj);
+
+    serializeJson(responseJSON, responseJSONString);
+    return responseJSONString;
 }

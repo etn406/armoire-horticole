@@ -15,12 +15,7 @@ void AHInputs::loop()
 
         if (onOffStatus == HIGH)
         {
-            buttonOnOffPressedCallback();
+            onButtonOnOffPressed();
         }
     }
-}
-
-void AHInputs::setButtonOnOffPressedCallback(void handleFn())
-{
-    buttonOnOffPressedCallback = handleFn;
 }
