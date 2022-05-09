@@ -11,10 +11,11 @@
 class AHWebServer
 {
 public:
+    AHData *data;
+
     void setup();
     void loop();
-    String getStatusText1();
-    String getStatusText2();
+    String getStatusAsText();
 
     String (*onSensorsRequest)() = []()
     { return String("{\"error\":\"onSensorsRequest is undefined\"}"); };
@@ -37,6 +38,7 @@ private:
 
     void handleRoot();
     void updateStatus();
+    void updateData();
 };
 
 #endif

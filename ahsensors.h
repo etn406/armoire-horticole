@@ -5,6 +5,7 @@
 #include <DHT.h>
 #include <ArduinoJson.h>
 #include "config.h"
+#include "ahdata.h"
 
 class AHSensors
 {
@@ -13,8 +14,9 @@ public:
     void loop(const long time);
     float getAverageTemperature();
     float getAverageHumidity();
+    bool isSensorConnected(int id);
     String getSensorsValuesJSON();
-    void (*onUpdate)(float temperature, float humidity) = [](float temperature, float humidity) {};
+    AHData *data;
 
 private:
     long lastUpdateTime = 0;

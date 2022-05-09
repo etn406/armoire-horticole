@@ -5,6 +5,7 @@
 #include "ahdisplay.h"
 #include "ahsensors.h"
 #include "ahrelays.h"
+#include "ahdata.h"
 
 unsigned long currentTime = 0;
 unsigned long lastUpdateTime = 0;
@@ -17,23 +18,24 @@ AHSensors ahSensors = AHSensors();
 AHWebServer ahWebServer = AHWebServer();
 AHInputs ahInputs = AHInputs();
 AHDisplay ahDisplay = AHDisplay();
+AHData data;
 
 void setup()
 {
     ahSensors.setup();
 
-    // Lorsque les cateurs se mettent à jour
-    ahSensors.onUpdate = [](float temperature, float humidity)
-    {
-        // Les propriété destinées à être affichées sont mises à jour
-        ahDisplay.temperature = temperature;
-        ahDisplay.humidity = humidity;
-    };
+    // Lorsque les capteurs se mettent à jour
+    ahSensors.data = &data;
+    ahWebServer.data = &data;
+    ahDisplay.data = &data;
 
     ahRelays.setup();
     ahInputs.setup();
     ahInputs.onButtonOnOffPressed = []()
-    { ahDisplay.mainOnOff = ahRelays.toggleAll(); };
+    {
+        ahRelays.toggleAll();
+        ahDisplay.displayWifiInformations();
+    };
 
     ahDisplay.setup();
     ahWebServer.setup();

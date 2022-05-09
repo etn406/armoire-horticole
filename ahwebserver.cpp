@@ -71,7 +71,7 @@ void AHWebServer::handleRoot()
 void AHWebServer::setup()
 {
     // Serial.println("Hello hello, tryin' to connect, don't mind me");
-
+    updateData();
     WiFi.mode(WIFI_STA);
     bool res = wifiManager.autoConnect(AH_WIFI_PORTAL_SSID, AH_WIFI_PORTAL_PASS);
 
@@ -82,8 +82,8 @@ void AHWebServer::setup()
     }
     else
     {
-        //if you get here you have connected to the WiFi
-        // Serial.println("Connected to WiFi !");
+        // if you get here you have connected to the WiFi
+        //  Serial.println("Connected to WiFi !");
 
         server.reset(new ESP8266WebServer(WiFi.localIP(), 80));
         server->enableCORS(true);
@@ -104,8 +104,7 @@ void AHWebServer::setup()
                    {
                        String name = getArgValue("name");
                        bool value = getArgValue("value") == "true";
-                       server->send(200, "application/json", onRelayChangeRequest(name, value));
-                   });
+                       server->send(200, "application/json", onRelayChangeRequest(name, value)); });
 
         server->onNotFound([&]()
                            { server->send(404, "text/plain", "File Not Found\n\n" + getRequestDescription()); });
@@ -130,7 +129,7 @@ String AHWebServer::getArgValue(String name)
     return "";
 }
 
-String AHWebServer::getStatusText1()
+String AHWebServer::getStatusAsText()
 {
     if (lastWiFiStatus != WL_CONNECTED)
     {
@@ -157,10 +156,6 @@ String AHWebServer::getStatusText1()
     }
 }
 
-String AHWebServer::getStatusText2()
-{
-}
-
 void AHWebServer::updateStatus()
 {
     wl_status_t wifiStatus = WiFi.status();
@@ -178,6 +173,12 @@ void AHWebServer::updateStatus()
 
 void AHWebServer::loop()
 {
-    updateStatus();
+    updateData();
     server->handleClient();
+}
+
+void AHWebServer::updateData()
+{
+    updateStatus();
+    data->wifiStatusText = getStatusAsText();
 }

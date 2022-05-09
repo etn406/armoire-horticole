@@ -23,10 +23,10 @@ public:
 
 private:
     Relay relays[AH_RELAYS_COUNT] = {
-        {"led-1", AH_RELAY_1_PIN, true},
-        {"led-2", AH_RELAY_2_PIN, true},
-        {"led-3", AH_RELAY_3_PIN, true},
-        {"heat", AH_RELAY_HEAT_PIN, true},
+        {"relay-0", AH_RELAY_1_PIN, true},
+        {"relay-1", AH_RELAY_2_PIN, true},
+        {"relay-2", AH_RELAY_3_PIN, true},
+        {"relay-3", AH_RELAY_4_PIN, true},
     };
 
     bool mainOnOff = true;

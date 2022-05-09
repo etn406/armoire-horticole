@@ -85,7 +85,7 @@ void AHRelays::update()
         digitalWrite(AH_RELAY_1_PIN, HIGH);
         digitalWrite(AH_RELAY_2_PIN, HIGH);
         digitalWrite(AH_RELAY_3_PIN, HIGH);
-        digitalWrite(AH_RELAY_HEAT_PIN, HIGH);
+        digitalWrite(AH_RELAY_4_PIN, HIGH);
     }
 }
 

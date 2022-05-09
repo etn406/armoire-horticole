@@ -17,12 +17,15 @@
 
 // Pins des relais
 #define AH_RELAYS_COUNT 4
-#define AH_RELAY_1_PIN 1
-#define AH_RELAY_2_PIN 3
-#define AH_RELAY_3_PIN 0
-#define AH_RELAY_HEAT_PIN 2
+#define AH_RELAY_1_PIN 0
+#define AH_RELAY_2_PIN 1
+#define AH_RELAY_3_PIN 2
+#define AH_RELAY_4_PIN 3
 
 // Bouton ON/OFF des LEDS
-#define AH_BUTTON_ONOFF 13
+#define AH_BUTTON_ONOFF 16
+
+// Temps d'affichage des informations WiFi
+#define AH_DISPLAY_TIME_OF_WIFI_INFOS 10000
 
 #endif

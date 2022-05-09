@@ -18,44 +18,76 @@ void AHSensors::loop(const long time)
 
         updateSensorsValues();
 
-        onUpdate(
-            getAverageTemperature(),
-            getAverageHumidity());
+        data->temperature = getAverageTemperature();
+        data->humidity = getAverageHumidity();
+        data->connected[0] = isSensorConnected(0);
+        data->connected[1] = isSensorConnected(1);
+        data->connected[2] = isSensorConnected(2);
     }
 }
 
 /**
- * @brief température moyenne
- * 
- * @return float 
+ * @brief Température moyenne
  */
 float AHSensors::getAverageTemperature()
 {
     float total = 0;
+    int count = 0;
 
     for (int i = 0; i < AH_SENSORS_COUNT; i++)
     {
-        total += temperature[i];
+        if (isSensorConnected(i))
+        {
+            total += temperature[i];
+            count++;
+        }
     }
 
-    return total / float(AH_SENSORS_COUNT);
+    if (count > 0)
+        return total / float(count);
+    else
+        return 0;
 }
 
 /**
- * @brief humidité moyenne
- * 
- * @return float 
+ * @brief Humidité moyenne
  */
 float AHSensors::getAverageHumidity()
 {
     float total = 0;
+    int count = 0;
 
     for (int i = 0; i < AH_SENSORS_COUNT; i++)
     {
-        total += humidity[i];
+        if (isSensorConnected(i))
+        {
+            total += humidity[i];
+            count++;
+        }
     }
 
-    return total / float(AH_SENSORS_COUNT);
+    if (count > 0)
+        return total / float(count);
+    else
+        return 0;
+}
+
+/**
+ * @brief Vérifie qu'un capteur est connecté
+ */
+bool AHSensors::isSensorConnected(int id)
+{
+    if (id < 0 || id >= AH_SENSORS_COUNT)
+    {
+        return false;
+    }
+    else
+    {
+        const bool temperatureIsOK = !isnan(temperature[id]) && temperature[id] > -100 && temperature[id] <= 100;
+        const bool humidityIsOK = !isnan(humidity[id]) && humidity[id] >= 0 && humidity[id] <= 100;
+
+        return temperatureIsOK && humidityIsOK;
+    }
 }
 
 String AHSensors::getSensorsValuesJSON()
