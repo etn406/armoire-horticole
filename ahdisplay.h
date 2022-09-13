@@ -15,15 +15,17 @@
 #define AH_SCREEN_ADDRESS 0x3C
 #define AH_OLED_RESET -1
 
-// Intervalle de rafraichissement de l'écran en millisecondes
+/// Screen refresh interval in seconds
 #define AH_DISPLAY_REFRESH_INTERVAL 500
 
+/**
+ * Displays data on the OLED screen.
+ */
 class AHDisplay
 {
 public:
+    /// Current data to display
     AHData *data;
-    String wifiStatus = "";
-    bool mainOnOff = true;
 
     void setup();
     void loop(const long time);

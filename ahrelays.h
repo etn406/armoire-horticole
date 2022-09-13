@@ -5,6 +5,9 @@
 #include <ArduinoJson.h>
 #include "config.h"
 
+/**
+ * Represents a relay
+ */
 struct Relay
 {
     String name;
@@ -12,6 +15,9 @@ struct Relay
     bool value;
 };
 
+/**
+ * Handle the relays (to turn on/off lights and the heating mat).
+ */
 class AHRelays
 {
 public:

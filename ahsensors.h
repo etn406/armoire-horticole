@@ -7,6 +7,9 @@
 #include "config.h"
 #include "ahdata.h"
 
+/**
+ * Handle up to 3 temperature and humidity sensors.
+ */
 class AHSensors
 {
 public:

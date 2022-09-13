@@ -8,6 +8,11 @@
 #include <WiFiManager.h>
 #include "ahsensors.h"
 
+/**
+ * The webserver handles two things:
+ * - the wifi portal to setup the wifi connection at first.
+ * - if the arduino is connected to a router, it serves a server with an API and a basic HTML home.
+ */
 class AHWebServer
 {
 public:

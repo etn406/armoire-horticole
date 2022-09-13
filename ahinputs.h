@@ -4,6 +4,9 @@
 #include <Arduino.h>
 #include "config.h"
 
+/**
+ * Detects when the main button is pressed.
+ */
 class AHInputs
 {
 public:
