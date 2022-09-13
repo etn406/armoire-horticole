@@ -10,8 +10,8 @@
    inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
    sodipodi:docname="illustration.svg"
    inkscape:export-filename="illustration.png"
-   inkscape:export-xdpi="203.52795"
-   inkscape:export-ydpi="203.52795"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -701,9 +701,9 @@
          transform="translate(26.726562,100.19531)"><tspan
            x="633.27344"
            y="279.80469"
-           id="tspan12461"><tspan
+           id="tspan12627"><tspan
              style="font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#000000;stroke:none"
-             id="tspan12459">grow light</tspan></tspan></text>
+             id="tspan12625">grow light</tspan></tspan></text>
       <text
          xml:space="preserve"
          style="font-size:16px;font-family:Marion;-inkscape-font-specification:Marion;text-align:start;text-anchor:start;white-space:pre;inline-size:156.727;display:inline;fill:#f6fced;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -713,9 +713,9 @@
          transform="translate(26.726562,195.19531)"><tspan
            x="633.27344"
            y="279.80469"
-           id="tspan12465"><tspan
+           id="tspan12631"><tspan
              style="font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#000000;stroke:none"
-             id="tspan12463">heating mat</tspan></tspan></text>
+             id="tspan12629">heating mat</tspan></tspan></text>
       <path
          style="fill:#f6fced;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart)"
          d="m 564,470 h 86"
@@ -748,14 +748,14 @@
          transform="translate(25.726562,0.1953125)"><tspan
            x="633.27344"
            y="279.80469"
-           id="tspan12469"><tspan
+           id="tspan12635"><tspan
              style="font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#000000;stroke:none"
-             id="tspan12467">temperature and </tspan></tspan><tspan
+             id="tspan12633">temperature and </tspan></tspan><tspan
            x="633.27344"
            y="301.02324"
-           id="tspan12473"><tspan
+           id="tspan12639"><tspan
              style="font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#000000;stroke:none"
-             id="tspan12471">humidity sensor</tspan></tspan></text>
+             id="tspan12637">humidity sensor</tspan></tspan></text>
     </g>
   </g>
 </svg>
